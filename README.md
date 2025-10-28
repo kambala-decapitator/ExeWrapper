@@ -4,6 +4,8 @@ This is an experimental Windows utility aimed to simplify building Qt projects w
 
 The culprit here is that various "host" (build-time) Qt executables like `uic.exe` depend on zlib which in turn requires that the directory containing `zlib.dll` is added to `PATH` (as Conan stores packaged libraries in separate directories). It's not a problem when you build project in terminal because you can easily inject proper `PATH` using `conanrun.(bat|ps1)` script, but it quickly becomes inconvenient as soon as you want to work in an IDE, which means that you must launch your IDE in a modified `PATH` environment (unless an IDE allows to configure build environment separately, but still it may not allow you to execute a preparation script also rendering it inconvenient).
 
+You can of course copy or symlink `zlib.dll` to the Qt package's `bin` directory, but that's not the true way ;)
+
 ## The workaround (this utility)
 
 Since we know which executables require `zlib.dll`, we can hack a wrapper executable whose sole purpose would be to call the actual Qt exe with properly configured `PATH`. Unfortunately, it's not as trivial as on UNIX-family operating systems where basically anything can be an executable, therefore a real win32 exe/program is required.
