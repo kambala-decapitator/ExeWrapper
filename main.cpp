@@ -43,7 +43,7 @@ std::wstring programCommandLineArgs()
 
 std::wstring readFirstLineFromFile(const std::wstring& filePath)
 {
-	std::wifstream file{filePath};
+	std::wifstream file{filePath.c_str()};
 	if (!file.is_open())
 		return {};
 
